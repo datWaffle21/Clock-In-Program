@@ -9,37 +9,37 @@ import util.Constants;
 import util.Window;
 
 public class Main extends Canvas implements Runnable {
-	private static final long serialVersionUID = 3650246170018746785L;
+	private static final long serialVersionUID = 3650246170018746785L; // Warning if not here so it is :p
 	
-	private Thread thread;
-	private boolean running = false;
+	private Thread thread; // java stuff i guess. 
+	private boolean running = false; // keeps track of whether or not the thread is running
 
 	public Main() {
-		new Window(Constants.WIDTH, Constants.HEIGHT, "Clock In Here", this);
+		new Window(Constants.WIDTH, Constants.HEIGHT, "Clock In Here", this); // creates a new window for the program
 	}
 	
 	public void tick() {
-		
+		//TODO -- add the tick method of the UI here
 	}
 	
 	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
 			this.createBufferStrategy(3);
-			return;
+			return; // kinda of a cool command. This skips the rest of the method and resumes the flow as if the rest of the code was executed
 		}
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
+		g.setColor(Color.black); // sets the color to black
+		g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT); // fills a black rectangle starting at (0,0) and ending at the (width,height) point
 				
-		g.dispose();
-		bs.show();
+		g.dispose(); // java thing
+		bs.show(); // java thing
 	}
 	
 	@Override
-	public void run() {
+	public void run() { // This is kinda hard to explain just ask me about it if you have questions
 		this.requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
@@ -71,22 +71,21 @@ public class Main extends Canvas implements Runnable {
 	}
 		
 	public void start() {
-		thread = new Thread(this);
-		thread.start();
-		running = true;
+		thread = new Thread(this); // starts a new thread with this as the target (This classes run method is called)
+		running = true; // sets running = true
 	}
 	
 	public void stop() {
 		try {
-			thread.join();
-			running = false;
+			thread.join(); // waits for the thread to stop
+			running = false; // sets running to false
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] args) {
-		new Main();
+		new Main(); // constructer for main
 	}
 	
 }
