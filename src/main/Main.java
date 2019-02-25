@@ -10,16 +10,23 @@ import util.Window;
 
 public class Main extends Canvas implements Runnable {
 	private static final long serialVersionUID = 3650246170018746785L; // Warning if not here so it is :p
-	
+		
 	private Thread thread; // java stuff i guess. 
 	private boolean running = false; // keeps track of whether or not the thread is running
+	
+	private UI ui;
 
 	public Main() {
+		ui = new UI(this);
+		
+		this.addMouseListener(ui);
+		
 		new Window(Constants.WIDTH, Constants.HEIGHT, "Clock In Here", this); // creates a new window for the program
+		
 	}
 	
 	public void tick() {
-		//TODO -- add the tick method of the UI here
+		ui.tick();
 	}
 	
 	public void render() {
@@ -34,6 +41,8 @@ public class Main extends Canvas implements Runnable {
 		g.setColor(Color.black); // sets the color to black
 		g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT); // fills a black rectangle starting at (0,0) and ending at the (width,height) point
 				
+		ui.render(g);
+		
 		g.dispose(); // java thing
 		bs.show(); // java thing
 	}
@@ -72,6 +81,7 @@ public class Main extends Canvas implements Runnable {
 		
 	public void start() {
 		thread = new Thread(this); // starts a new thread with this as the target (This classes run method is called)
+		thread.start(); // Starts the thread
 		running = true; // sets running = true
 	}
 	
@@ -85,7 +95,7 @@ public class Main extends Canvas implements Runnable {
 	}
 	
 	public static void main(String[] args) {
-		new Main(); // constructer for main
+		new Main(); // constructor for main
 	}
 	
 }
